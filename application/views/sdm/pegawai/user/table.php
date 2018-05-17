@@ -2,16 +2,16 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
- 
+
     <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12 col-md-12">
           <div class="box">
-            <div class="box-header"> 
+            <div class="box-header">
               <?php echo $this->session->flashdata('pesan_eror'); ?>
               <h2>Data User Login Pegawai
-                <a href="<?php echo base_url() ?>sdm/pegawai/create_user" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Tambah User Login Pegawai"><i class="fa fa-plus"></i> Tambah</a> 
+                <a href="<?php echo base_url() ?>sdm/pegawai/create_user" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Tambah User Login Pegawai"><i class="fa fa-plus"></i> Tambah</a>
               </h2>
             </div>
             <div class="box-body">
@@ -55,6 +55,7 @@
         <form action="ganti_pass" method="POST">
           <div class="modal-body">
               <input type="hidden" name="id_user" id="id" value="" required>
+              <input type="hidden" name="to" id="to" value="user" required>
               <div class="form-group">
                 <label class="control-label">New Password : </label>
                 <input type="text" name="password" class="form-control" placeholder="Password ...." required>
@@ -66,7 +67,7 @@
           </div>
         </form>
       </div>
-      
+
     </div>
   </div>
     <!-- /.content -->
@@ -99,9 +100,9 @@
 }
 
 $('#myModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) 
-  var recipient = button.data('nama') 
-  var id = button.data('id') 
+  var button = $(event.relatedTarget)
+  var recipient = button.data('nama')
+  var id = button.data('id')
   var modal = $(this)
   modal.find('.modal-title').text('Ganti Password '+ recipient)
   modal.find('.modal-body #id').val(id)

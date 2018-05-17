@@ -6,10 +6,12 @@ class Kelurahan_model extends CI_Model{
 	private $primary = "id_kel";
 
 	function read(){
-		$this->db->join('kecamatan','kecamatan.id_kec = kelurahan.id_kec','INNER');
-		$this->db->join('kabupaten','kabupaten.id_kab = kecamatan.id_kab','INNER');
-		$this->db->join('provinsi','provinsi.id_prov = kabupaten.id_prov','INNER');
-		return $this->db->get($this->table)->result();
+		$query = "call getAlamat()";
+		$hasil = $this->db->query($query);
+		mysqli_next_result($this->db->conn_id);
+		if ($hasil->num_rows() > 0) {
+			return $hasil->result();
+		}
 	}
 	function getById($id){
 		$this->db->where($this->primary,$id);

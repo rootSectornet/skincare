@@ -1,12 +1,12 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* 
+*
 */
 class User_model extends CI_Model
 {
-		
+
 	private $table = "user_login";
-	private $primary = "id_user";	
+	private $primary = "id_user";
 	public function cek_user($data) {
 		$query = $this->db->get_where($this->table, $data);
 		return $query;
@@ -30,5 +30,9 @@ class User_model extends CI_Model
 	function delete($id){
 		$this->db->where($this->primary,$id);
 		$this->db->delete($this->table);
+	}
+	function getByIdPegawai($id){
+		$this->db->where('id_mst_pegawai',$id);
+		return $this->db->get($this->table)->row();
 	}
 }

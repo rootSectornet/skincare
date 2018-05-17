@@ -2200,6 +2200,10 @@ a:focus {
   padding: 0;
   list-style: none;
 }
+.timeline-header:hover{
+  background-color: #eee;
+  cursor: pointer;
+}
 .timeline:before {
   content: '';
   position: absolute;
@@ -2257,6 +2261,9 @@ a:focus {
   padding: 10px;
   font-size: 16px;
   line-height: 1.1;
+}
+.timeline > li > .timeline-item > .timeline-header:hover {
+  background-color: red;
 }
 .timeline > li > .timeline-item > .timeline-header > a {
   font-weight: 600;

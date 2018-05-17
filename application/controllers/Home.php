@@ -22,5 +22,9 @@ class Home extends CI_Controller {
     public function index(){
         $this->template->layout('Dashboard');
     }
+    public function setSess(){
+      $sess_data['id_menu'] = $this->input->post('id');
+      $this->session->set_userdata($sess_data);
+    }
 
 }

@@ -29,12 +29,16 @@
                         <input type="text" name="icon" class="form-control" placeholder="Nama Group" required>
                       </div>
                       <div class="form-group">
-                        <label class="control-label">Main Menu
-                            <input type="radio" name="is_menu" class="flat-red" checked id="main" value="0">
-                        </label>
-                        <label class="control-label">Sub Main Menu
-                            <input type="radio" name="is_menu" class="flat-red" id="sub" value="1">
-                        </label>
+                          <div class="col-md-6">
+
+                                  <input type="radio" name="is_menu" class="flat-red" checked id="main" value="0">
+                                  <label class="control-label">Main Menu</label>
+                          </div>
+                          <div class="col-md-6">
+
+                              <input type="radio" name="is_menu" class="flat-red" id="sub" value="1">
+                              <label class="control-label">Sub Main Menu</label>
+                          </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label">Pilih Main Menu</label>
@@ -63,15 +67,28 @@
   $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 });
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-blue',
-      radioClass   : 'iradio_flat-blue'
+    // $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+    //   checkboxClass: 'icheckbox_flat-blue',
+    //   radioClass   : 'iradio_flat-blue'
+    // });
+    $(document).ready(function(){
+      $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').each(function(){
+        var self = $(this),
+          label = self.next(),
+          label_text = label.text();
+
+        label.remove();
+        self.iCheck({
+          checkboxClass: 'icheckbox_line',
+          radioClass: 'iradio_line-blue',
+          insert: '<div class="icheck_line-icon"></div>' + label_text
+        });
+      });
     });
-    $('#sub').on('ifChecked', function(event){
-      $('#is_main_menu').prop("disabled", false);
-    });
-    $('#main').on('ifChecked', function(event){
+    $('input#main').on('ifChecked', function(event){
       $('#is_main_menu').prop("disabled", true);
     });
-    
+    $('input#sub').on('ifChecked', function(event){
+      $('#is_main_menu').prop("disabled", false);
+    });
 </script>

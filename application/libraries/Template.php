@@ -1,20 +1,27 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-* 
+*
 */
-class Template  
+class Template
 {
 	protected $CI;
 	function __construct(){
 		$this->CI =& get_instance();
 	}
+	function Icreate(){
+		
+	}
 	function layout($link,$param = null){
 		$data['menu'] = $this->menu($this->CI->session->userdata('group'));
+		$this->CI->load->model('Product_model','product');
+		$data['jumlahNStock'] = $this->CI->product->HitOutOfStock();
+		$data['outOfStock'] = $this->CI->product->OutOfStock();
+		$data['expobat'] = $this->CI->product->getExpProduct(date('Y-m-d'));
 		$this->CI->load->view('template/header');
-        $this->CI->load->view('template/menu',$data);
+        $this->CI->load->view('template/Menu',$data);
         $this->CI->load->view($link,$param);
-        $this->CI->load->view('template/footer');
+        $this->CI->load->view('template/Footer');
 	}
 	function menu($id_group){
 		$menu = array();
@@ -40,6 +47,6 @@ class Template
 			}
 			array_push($menu,$temp_menu);
 		 }
-		return json_encode($menu); 
+		return json_encode($menu);
 	}
 }

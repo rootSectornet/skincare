@@ -20,4 +20,9 @@ class Tindakan_model extends CI_Model{
 		$this->db->update($this->table,$post);
 	}
 
+	function getByIdo($id){
+		$this->db->where($this->primary,$id);
+		return $this->db->get($this->table)->row();
+	}
+
 }

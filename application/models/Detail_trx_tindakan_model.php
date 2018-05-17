@@ -16,6 +16,7 @@ class Detail_trx_tindakan_model extends CI_Model{
 	}
 	function create($data){
 		$this->db->insert($this->table,$data);
+		return $this->db->insert_id();
 	}
 	function update($post,$id){
 		$this->db->where($this->primary,$id);

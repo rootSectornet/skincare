@@ -13,6 +13,7 @@ class Pegawai extends CI_Controller {
         $this->load->model('Pegawai_model','pegawai');
         $this->load->model('User_model','user');
         $this->load->helper('date');
+        $this->load->helper('tanggal');
         date_default_timezone_set("Asia/Jakarta");
 
     }
@@ -32,6 +33,7 @@ class Pegawai extends CI_Controller {
                             <h4><i class='icon fa fa-ban'></i> Information !!!</h4>
                             Gagal Menyimpan Data !
                     </div>");
+           redirect('sdm/pegawai','refresh');
             }else{
                    $this->session->set_flashdata("pesan_eror","<div class='alert bg-blue alert-dismissible' role='alert'>
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
@@ -56,6 +58,7 @@ class Pegawai extends CI_Controller {
                             <h4><i class='icon fa fa-ban'></i> Information !!!</h4>
                             Gagal Update Data !
                     </div>");
+           redirect('sdm/pegawai','refresh');
             }else{
                    $this->session->set_flashdata("pesan_eror","<div class='alert bg-blue alert-dismissible' role='alert'>
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
@@ -79,6 +82,7 @@ class Pegawai extends CI_Controller {
                         <h4><i class='icon fa fa-ban'></i> Information !!!</h4>
                         Gagal Delete Data !
                 </div>");
+       redirect('sdm/pegawai','refresh');
         }else{
                $this->session->set_flashdata("pesan_eror","<div class='alert bg-blue alert-dismissible' role='alert'>
                             <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
@@ -87,6 +91,12 @@ class Pegawai extends CI_Controller {
                         </div>");
                redirect('sdm/pegawai','refresh');
         }
+    }
+
+    public function profile($id){
+      $data['pegawai'] = $this->pegawai->getByID($id);
+      $data['user_login']  = $this->user->getByIdPegawai($id);
+      $this->template->layout('sdm/pegawai/profile',$data);
     }
 
     // start user lgin
@@ -107,6 +117,7 @@ class Pegawai extends CI_Controller {
                                 <h4><i class='icon fa fa-ban'></i> Information !!!</h4>
                                 Gagal Menyimpan Data !
                         </div>");
+               redirect('sdm/pegawai/user','refresh');
                 }else{
                        $this->session->set_flashdata("pesan_eror","<div class='alert bg-blue alert-dismissible' role='alert'>
                                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
@@ -121,23 +132,24 @@ class Pegawai extends CI_Controller {
         }
         public function ganti_pass(){
             $post = $this->input->post();
-            $post['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
+            $data['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
             $this->db->trans_start();
-                $this->user->update($post,$post['id_user']);
+                $this->user->update($data,$post['id_user']);
             $this->db->trans_complete();
             if ($this->db->trans_status() === false) {
                    $this->session->set_flashdata("pesan_eror","<div class='alert alert-danger alert-dismissible'>
                             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
                             <h4><i class='icon fa fa-ban'></i> Information !!!</h4>
-                            Gagal Menyimpan Data !
+                            Gagal Update Password !
                     </div>");
+           redirect('sdm/pegawai/'.$post['to'],'refresh');
             }else{
                    $this->session->set_flashdata("pesan_eror","<div class='alert bg-blue alert-dismissible' role='alert'>
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
                                 <h4><i class='icon fa fa-ban'></i> Information !!!</h4>
-                               Succes Menyimpan Data !.
+                               Succes Update Password !.
                             </div>");
-                   redirect('sdm/pegawai/user','refresh');
+                   redirect('sdm/pegawai/'.$post['to'],'refresh');
             }
         }
         public function update_user($id){
@@ -152,6 +164,7 @@ class Pegawai extends CI_Controller {
                                 <h4><i class='icon fa fa-ban'></i> Information !!!</h4>
                                 Gagal Menyimpan Data !
                         </div>");
+               redirect('sdm/pegawai/user','refresh');
                 }else{
                        $this->session->set_flashdata("pesan_eror","<div class='alert bg-blue alert-dismissible' role='alert'>
                                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
@@ -175,6 +188,7 @@ class Pegawai extends CI_Controller {
                             <h4><i class='icon fa fa-ban'></i> Information !!!</h4>
                             Gagal Hapus Data !
                     </div>");
+           redirect('sdm/pegawai/user','refresh');
             }else{
                    $this->session->set_flashdata("pesan_eror","<div class='alert bg-blue alert-dismissible' role='alert'>
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>

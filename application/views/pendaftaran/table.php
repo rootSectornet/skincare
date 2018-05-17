@@ -5,16 +5,16 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
- 
+
     <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12 col-md-12">
           <div class="box">
-            <div class="box-header"> 
+            <div class="box-header">
               <?php echo $this->session->flashdata('pesan_eror'); ?>
               <h2>Data Pendaftaran
-                <a href="<?php echo base_url() ?>pendaftaran/pendaftaran/create" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Tambah Pasien"><i class="fa fa-plus"></i> Tambah</a> 
+                <a href="<?php echo base_url() ?>pendaftaran/pendaftaran/create" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Tambah Pasien"><i class="fa fa-plus"></i> Tambah</a>
               </h2>
             </div>
             <div class="box-body">
